@@ -5,7 +5,12 @@ export const Author = Record({
     (name) => name.length > 0 || 'name must be non-empty'
   ),
   age: Number.withConstraint((age) => age < 100 || 'age must be < 100'),
-}).asReadonly();
+})
+  .asReadonly()
+  .withConstraint(
+    (author) =>
+      author.name === `${author.age}` || 'name must match age as a string'
+  );
 
 export const BookKeys = Record({
   bookId: String,
@@ -26,8 +31,8 @@ function test() {
     text: 'xyz',
     pages: 123,
     author: {
-      name: '',
-      age: 101,
+      name: '99',
+      age: 99,
     },
   });
 }
