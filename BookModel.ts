@@ -47,6 +47,9 @@ function test() {
   });
 
   // Type of book1 now known, valid fields accessible
+  // No need to write a separate TypeScript interface for this data
+  // in addition to the schema - model is single source
+  // of truth but we still have type safety
   book1.bookId;
   book1.pages;
   book1.author.name;
@@ -60,6 +63,7 @@ function test() {
 
   // Compiler error: all field are readonly (immutable)
   book1.bookId = 'abc';
+  book1.author.age = 123;
 }
 
 test();
